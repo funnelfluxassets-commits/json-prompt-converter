@@ -104,7 +104,7 @@
             gap: 1rem;
             justify-content: center;
             margin-top: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: calc(2rem - 10px);
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
@@ -248,11 +248,13 @@
         }
 
         .generate-btn span {
-            font-size: 1.4rem;
-            margin-left: 0.2rem;
-            line-height: 1;
+            font-size: 1.8rem;
+            margin-left: 0.6rem;
+            line-height: 0;
             display: inline-flex;
             align-items: center;
+            height: 100%;
+            vertical-align: middle;
         }
 
         .action-meta {
@@ -332,7 +334,7 @@
                 gap: 0.75rem;
                 width: 100%;
                 max-width: 280px;
-                margin: 2rem auto;
+                margin: 2rem auto calc(2rem - 10px) auto;
             }
 
             .tab-btn {
