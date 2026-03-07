@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Banana | JSON Prompt Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #585efe;
+            --primary-glow: rgba(88, 94, 254, 0.4);
+            --bg: #020617;
+            --card-bg: #020617;
+            --input-bg: #0c0e18;
+            --border: rgba(146, 51, 234, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-blue: #585efe;
+            --gradient-highlight: linear-gradient(to right, #585efe, #9233EA);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            line-height: 1.5;
+        }
+
+        .top-meta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        header {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        h1 em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.35rem;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        header .user-info {
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        header .user-info strong {
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .tab-btn {
+            background-color: #ffdd00;
+            color: #020617;
+            padding: 0.5rem 1.6rem;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 221, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 221, 0, 0.3);
+        }
+
+        .tab-btn.inactive {
+            opacity: 0.5;
+            filter: grayscale(0.5);
+            cursor: not-allowed;
+        }
+
+        .main-card {
+            width: 100%;
+            max-width: 860px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
+                var(--gradient-highlight) border-box;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.225rem;
+            resize: none;
+            outline: none;
+            transition: all 0.2s ease;
+            min-height: 120px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        textarea:focus {
+            box-shadow: 0 0 0 2px rgba(146, 51, 234, 0.2);
+        }
+
+        .templates {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(200px, 1fr));
+            justify-content: center;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .template-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.6rem 1rem;
+            border-radius: 100px;
+            font-size: 0.975rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .template-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #3b3f5c;
+            color: #fff;
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .generate-btn {
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .generate-btn:active {
+            transform: translateY(1px) scale(0.98);
+            filter: brightness(0.9);
+            box-shadow: 0 4px 10px var(--primary-glow);
+        }
+
+        .generate-btn span {
+            font-size: 1.4rem;
+            margin-left: 0.2rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .action-meta {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .output-header .section-label {
+            margin-bottom: 0;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .output-box {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            min-height: 100px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 1.075rem;
+            overflow: auto;
+            position: relative;
+            background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
+                var(--gradient-highlight) border-box;
+            border: 1px solid transparent;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .main-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-meta">NO LLMS · NO TOKENS · ZERO COST</div>
+
+    <header>
+        <h1>Turn plain English into<br><em>Perfect</em> <span class="gradient-text">JSON</span> Prompts.</h1>
+        <p style="margin-bottom: 2rem;">Describe your scene in plain language. Get a structured Nano Banana JSON prompt
+            instantly — no AI required.</p>
+
+        <div class="tabs-container">
+            <button class="tab-btn">Nano Banana Pro</button>
+            <button class="tab-btn">Nano Banana 2</button>
+        </div>
+    </header>
+
+    <div class="main-card">
+        <!-- Input Section -->
+        <div class="input-group">
+            <span class="section-label">Your Prompt</span>
+            <textarea id="input-prompt"
+                placeholder="a woman at a coffee shop in the morning, warm vibes, film aesthetic"></textarea>
+
+            <div class="templates">
+                <button class="template-btn"
+                    data-prompt="a lone samurai standing on a cliff during a thunderstorm, lightning strikes, dramatic lighting, cinematic">lone
+                    samurai, thunderstorm...</button>
+                <button class="template-btn"
+                    data-prompt="futuristic cyberpunk city at sunset, neon bioluminescence, flying vehicles, raw style">cyberpunk
+                    neon city...</button>
+                <button class="template-btn"
+                    data-prompt="astronaut discovering a glowing crystal temple on Mars, deep shadows, cinematic lighting, photorealistic">astronaut,
+                    crystal temple...</button>
+                <button class="template-btn"
+                    data-prompt="majestic phoenix rising from volcanic ash, glowing embers, intense heat distortion, dramatic">phoenix
+                    rising, volcano...</button>
+            </div>
+        </div>
+
+        <!-- Action Row -->
+        <div class="action-row">
+            <button class="generate-btn" id="generate-trigger">
+                Generate JSON <span>→</span>
+            </button>
+            <div class="action-meta">Rule-based · Instant · Free</div>
+        </div>
+
+        <!-- Output Section -->
+        <div class="output-group">
+            <div class="output-header">
+                <span class="section-label">JSON Output</span>
+                <button class="copy-btn" id="copy-btn">Copy</button>
+            </div>
+            <div class="output-box">
+                <pre id="output-json">// Output will appear here...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputPrompt = document.getElementById('input-prompt');
+        const outputJson = document.getElementById('output-json');
+        const generateBtn = document.getElementById('generate-trigger');
+        const copyBtn = document.getElementById('copy-btn');
+        const templateBtns = document.querySelectorAll('.template-btn');
+
+        const STYLE_MAPPING = {
+            "cinematic": "ultra_photorealistic",
+            "photorealistic": "ultra_photorealistic",
+            "realistic": "standard",
+            "anime": "anime_v6",
+            "3d": "3d_render_octane",
+            "raw": "raw",
+            "retro": "1970s film grain",
+            "film aesthetic": "vintage cinematic look"
+        };
+
+        const LIGHTING_MAPPING = {
+            "sunny": "bright direct sunlight",
+            "golden hour": "soft warm sunset lighting",
+            "neon": "cyberpunk neon glow",
+            "studio": "professional studio lighting",
+            "dim": "low-key atmospheric lighting",
+            "dark": "highly shadowed, dramatic",
+            "warm vibes": "soft incandescent indoor lighting"
+        };
+
+        const ASPECT_RATIOS = {
+            "portrait": "9:16",
+            "landscape": "16:9",
+            "square": "1:1",
+            "wide": "21:9"
+        };
+
+        const HUMAN_KEYWORDS = ["man", "woman", "person", "girl", "boy", "human", "child", "model"];
+
+        function convertToJSON(basicPrompt) {
+            let jsonPrompt = {
+                "task": "Generate a high-quality visual still based on the description.",
+                "parameters": {
+                    "subject": {
+                        "description": "",
+                        "made_out_of": "standard materials"
+                    },
+                    "background": {
+                        "setting": "neutral"
+                    },
+                    "lighting": "natural lighting",
+                    "style": "standard"
+                },
+                "meta": {
+                    "aspect_ratio": "16:9",
+                    "resolution": "2K",
+                    "quality": "standard",
+                    "negative_prompt": ["blur", "distorted", "watermark", "text", "bad anatomy"]
+                }
+            };
+
+            let cleanDescription = basicPrompt;
+            const lowerPrompt = basicPrompt.toLowerCase();
+
+            // 1. Aspect Ratio
+            for (const [key, val] of Object.entries(ASPECT_RATIOS)) {
+                if (lowerPrompt.includes(key)) {
+                    jsonPrompt.meta.aspect_ratio = val;
+                    cleanDescription = cleanDescription.replace(new RegExp(`\\b${key}\\b`, 'gi'), "");
+                }
+            }
+
+            // 2. Style
+            for (const [key, val] of Object.entries(STYLE_MAPPING)) {
+                if (lowerPrompt.includes(key)) {
+                    jsonPrompt.meta.quality = val;
+                    jsonPrompt.parameters.style = key;
+                    cleanDescription = cleanDescription.replace(new RegExp(`\\b${key}\\b`, 'gi'), "");
+                }
+            }
+
+            // 3. Lighting
+            for (const [key, val] of Object.entries(LIGHTING_MAPPING)) {
+                if (lowerPrompt.includes(key)) {
+                    jsonPrompt.parameters.lighting = val;
+                    cleanDescription = cleanDescription.replace(new RegExp(`\\b${key}\\b`, 'gi'), "");
+                }
+            }
+
+            // 4. Human Realism
+            if (HUMAN_KEYWORDS.some(h => lowerPrompt.includes(h))) {
+                jsonPrompt.parameters.subject.made_out_of = "organic skin, detailed pores, natural texture";
+            }
+
+            // Cleanup description
+            jsonPrompt.parameters.subject.description = cleanDescription.replace(/\s+/g, ' ').trim();
+
+            return jsonPrompt;
+        }
+
+        function triggerGeneration() {
+            const promptValue = inputPrompt.value.trim();
+            if (!promptValue) {
+                outputJson.textContent = "// Describe a scene first...";
+                return;
+            }
+
+            // Simulate quick calculation
+            const jsonObject = convertToJSON(promptValue);
+            outputJson.textContent = JSON.stringify(jsonObject, null, 4);
+        }
+
+        // Interaction Listeners
+        generateBtn.addEventListener('click', triggerGeneration);
+
+        // Clear output if prompt is deleted, but don't auto-generate
+        inputPrompt.addEventListener('input', () => {
+            if (inputPrompt.value === "") {
+                outputJson.textContent = "// Output will appear here...";
+            }
+        });
+
+        templateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                inputPrompt.value = btn.getAttribute('data-prompt');
+                triggerGeneration();
+            });
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const text = outputJson.textContent;
+            if (text.startsWith("//")) return;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = "Copied!";
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+
+</html>
