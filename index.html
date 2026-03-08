@@ -8,20 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
         :root {
             --primary: #585efe;
             --primary-glow: rgba(88, 94, 254, 0.4);
-            --bg: #020617;
-            --card-bg: #020617;
+            --bg: #03040a;
+            --card-bg: #0a0b12;
             --input-bg: #0c0e18;
-            --border: rgba(146, 51, 234, 0.4);
+            --border: #1a1e2e;
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #6b7280;
             --accent-blue: #585efe;
-            --gradient-highlight: linear-gradient(to right, #585efe, #9233EA);
         }
 
         * {
@@ -31,19 +30,38 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem 4rem 2rem;
             line-height: 1.5;
+            position: relative;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+        }
+
+        .logo-container img {
+            height: 45px;
+            width: auto;
+            display: block;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-container img:hover {
+            opacity: 0.8;
         }
 
         .top-meta {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-muted);
             letter-spacing: 0.2em;
@@ -55,7 +73,7 @@
         header {
             text-align: center;
             max-width: 800px;
-            margin-bottom: 2rem;
+            margin-bottom: 4rem;
         }
 
         h1 {
@@ -64,7 +82,6 @@
             line-height: 1;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-            color: #fff;
         }
 
         h1 em {
@@ -74,64 +91,16 @@
             color: #fff;
         }
 
-        .gradient-text {
-            background: linear-gradient(to right, #3b82f6, #a855f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        h1 b {
+            color: var(--primary);
+            font-weight: 700;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1.35rem;
-            max-width: 650px;
+            font-size: 1.25rem;
+            max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        header .user-info {
-            color: #94a3b8;
-            margin-bottom: 0.5rem;
-        }
-
-        header .user-info strong {
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-
-        .tabs-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            margin-bottom: calc(2rem - 10px);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .tab-btn {
-            background-color: #ffdd00;
-            color: #020617;
-            padding: 0.5rem 1.6rem;
-            border-radius: 100px;
-            font-weight: 800;
-            font-size: 0.88rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 221, 0, 0.2);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 221, 0, 0.3);
-        }
-
-        .tab-btn.inactive {
-            opacity: 0.5;
-            filter: grayscale(0.5);
-            cursor: not-allowed;
         }
 
         .main-card {
@@ -145,13 +114,12 @@
         }
 
         .section-label {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-top: 5px;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             display: block;
         }
 
@@ -161,48 +129,41 @@
 
         textarea {
             width: 100%;
-            background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
-                var(--gradient-highlight) border-box;
-            border: 1px solid transparent;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
             color: #fff;
             font-family: inherit;
-            font-size: 1.225rem;
+            font-size: 1.1rem;
             resize: none;
             outline: none;
             transition: all 0.2s ease;
             min-height: 120px;
             margin-bottom: 1.5rem;
-            position: relative;
         }
 
         textarea:focus {
-            box-shadow: 0 0 0 2px rgba(146, 51, 234, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(88, 94, 254, 0.1);
         }
 
         .templates {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(200px, 1fr));
-            justify-content: center;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
 
         .template-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
             color: var(--text-muted);
-            padding: 0.6rem 1rem;
+            padding: 0.5rem 1rem;
             border-radius: 100px;
-            font-size: 0.975rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .template-btn:hover {
@@ -227,7 +188,7 @@
             padding: 0.85rem 1.75rem;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -241,36 +202,16 @@
             filter: brightness(1.1);
         }
 
-        .generate-btn:active {
-            transform: translateY(1px) scale(0.98);
-            filter: brightness(0.9);
-            box-shadow: 0 4px 10px var(--primary-glow);
-        }
-
-        .generate-btn span {
-            font-size: 1.8rem;
-            margin-left: 0.6rem;
-            line-height: 0;
-            display: inline-flex;
-            align-items: center;
-            height: 100%;
-            vertical-align: middle;
-        }
-
         .action-meta {
-            font-size: 0.975rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .output-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
             margin-bottom: 1rem;
-        }
-
-        .output-header .section-label {
-            margin-bottom: 0;
         }
 
         .copy-btn {
@@ -279,7 +220,7 @@
             color: #fff;
             padding: 0.25rem 0.75rem;
             border-radius: 6px;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s ease;
@@ -297,12 +238,9 @@
             min-height: 100px;
             font-family: 'JetBrains Mono', monospace;
             color: var(--primary);
-            font-size: 1.075rem;
+            font-size: 0.95rem;
             overflow: auto;
             position: relative;
-            background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
-                var(--gradient-highlight) border-box;
-            border: 1px solid transparent;
         }
 
         pre {
@@ -312,57 +250,22 @@
 
         /* Responsive */
         @media (max-width: 640px) {
+            .logo-container {
+                position: static;
+                margin-bottom: 2rem;
+                align-self: flex-start;
+            }
+
             body {
-                padding: 2rem 1rem;
+                padding: 2rem 1.5rem;
             }
 
             h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 1.1rem;
-                padding: 0 1rem;
+                font-size: 2.5rem;
             }
 
             .main-card {
-                padding: 1.5rem 1.25rem;
-            }
-
-            .tabs-container {
-                flex-direction: column;
-                gap: 0.75rem;
-                width: 100%;
-                max-width: 280px;
-                margin: 2rem auto calc(2rem - 10px) auto;
-            }
-
-            .tab-btn {
-                width: 100%;
-                padding: 0.6rem;
-            }
-
-            .templates {
-                grid-template-columns: 1fr;
-            }
-
-            .template-btn {
-                white-space: normal;
-                height: auto;
-                line-height: 1.4;
-                padding: 0.75rem;
-            }
-
-            .action-row {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-                padding-top: 1.5rem;
-            }
-
-            .generate-btn {
-                width: 100%;
-                justify-content: center;
+                padding: 1.5rem;
             }
         }
     </style>
@@ -370,17 +273,16 @@
 
 <body>
 
+    <a href="/" class="logo-container">
+        <img src="assets/logo.png" alt="Funnel Flux Assets">
+    </a>
+
     <div class="top-meta">NO LLMS · NO TOKENS · ZERO COST</div>
 
     <header>
-        <h1>Turn plain English into<br><em>Perfect</em> <span class="gradient-text">JSON</span> Prompts.</h1>
-        <p>Describe your scene in plain language. Get a structured Nano Banana JSON prompt
-            instantly — no AI required.</p>
-
-        <div class="tabs-container">
-            <button class="tab-btn">Nano Banana Pro</button>
-            <button class="tab-btn">Nano Banana 2</button>
-        </div>
+        <h1>Turn plain English into<br><em>Perfect</em> <b>JSON</b> Prompts.</h1>
+        <p>Describe your scene in plain language. Get a structured Nano Banana 2 JSON prompt instantly — no AI required.
+        </p>
     </header>
 
     <div class="main-card">
@@ -391,18 +293,15 @@
                 placeholder="a woman at a coffee shop in the morning, warm vibes, film aesthetic"></textarea>
 
             <div class="templates">
+                <button class="template-btn" data-prompt="woman at a coffee shop, morning, warm vibes">woman at a coffee
+                    shop...</button>
+                <button class="template-btn" data-prompt="old man walking in tokyo at night, moody, cinematic">old man
+                    walking in tokyo...</button>
+                <button class="template-btn" data-prompt="product shot of a mug on a desk, bright, minimalist">product
+                    shot of a mug...</button>
                 <button class="template-btn"
-                    data-prompt="a lone samurai standing on a cliff during a thunderstorm, lightning strikes, dramatic lighting, cinematic">lone
-                    samurai, thunderstorm...</button>
-                <button class="template-btn"
-                    data-prompt="futuristic cyberpunk city at sunset, neon bioluminescence, flying vehicles, raw style">cyberpunk
-                    neon city...</button>
-                <button class="template-btn"
-                    data-prompt="astronaut discovering a glowing crystal temple on Mars, deep shadows, cinematic lighting, photorealistic">astronaut,
-                    crystal temple...</button>
-                <button class="template-btn"
-                    data-prompt="majestic phoenix rising from volcanic ash, glowing embers, intense heat distortion, dramatic">phoenix
-                    rising, volcano...</button>
+                    data-prompt="cyberpunk woman leaning against a wall, neon lighting">cyberpunk woman
+                    leaning...</button>
             </div>
         </div>
 
@@ -539,11 +438,10 @@
         // Interaction Listeners
         generateBtn.addEventListener('click', triggerGeneration);
 
-        // Clear output if prompt is deleted, but don't auto-generate
+        // Also update on Type for a snappy feel
         inputPrompt.addEventListener('input', () => {
-            if (inputPrompt.value === "") {
-                outputJson.textContent = "// Output will appear here...";
-            }
+            if (inputPrompt.value === "") outputJson.textContent = "// Output will appear here...";
+            else triggerGeneration();
         });
 
         templateBtns.forEach(btn => {
