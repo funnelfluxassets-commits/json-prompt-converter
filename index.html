@@ -434,6 +434,8 @@
 </head>
 
 <body>
+<!-- Interactive Canvas Grid -->
+<canvas id="interactive-grid" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
     <a href="https://funnelfluxassets.com" class="logo-container">
         <img src="assets/logo.png" alt="Funnel Flux Assets">
@@ -625,6 +627,75 @@
                 }, 2000);
             });
         });
+
+        // Interactive Grid Canvas
+        (function() {
+            const canvas = document.getElementById('interactive-grid');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            let mouse = { x: -1000, y: -1000 };
+            let dots = [];
+            const gap = 35;
+            const mouseRadius = 150;
+
+            function init() {
+                dots = [];
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                for (let x = gap / 2; x < canvas.width; x += gap) {
+                    for (let y = gap / 2; y < canvas.height; y += gap) {
+                        dots.push({ x, y, originalX: x, originalY: y });
+                    }
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const dotColor = '255, 255, 255';
+                const baseOpacity = 0.4;
+
+                dots.forEach(dot => {
+                    const dx = mouse.x - dot.originalX;
+                    const dy = mouse.y - dot.originalY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    let x = dot.originalX;
+                    let y = dot.originalY;
+
+                    if (distance < mouseRadius) {
+                        const ratio = (mouseRadius - distance) / mouseRadius;
+                        x -= dx * ratio * 0.1;
+                        y -= dy * ratio * 0.1;
+                        
+                        ctx.fillStyle = `rgba(59, 130, 246, ${baseOpacity + (ratio * 0.6)})`;
+                        const size = 1.2 + (ratio * 1.5);
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = `rgba(${dotColor}, ${baseOpacity})`;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 1, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            window.addEventListener('resize', init);
+
+            init();
+            draw();
+        })();
     </script>
 </body>
 
