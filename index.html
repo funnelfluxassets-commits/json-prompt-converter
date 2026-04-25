@@ -13,7 +13,7 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary: #585efe;
+            --primary: #3B82F6;
             --primary-glow: rgba(88, 94, 254, 0.4);
             --bg: #000000;
             --card-bg: #0A0A0A;
@@ -66,7 +66,7 @@
         }
 
         .logo-container img {
-            height: 36px;
+            height: 28px;
             width: auto;
             display: block;
             transition: opacity 0.2s ease;
@@ -368,16 +368,22 @@
         /* Responsive */
         @media (max-width: 640px) {
             .logo-container {
-                position: absolute;
+                position: fixed;
                 top: 0.75rem;
                 left: 0.75rem;
+                gap: 8px;
             }
 
             .logo-container img {
-                height: 65px;
+                height: 24px;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
             }
 
             .hamburger {
+                position: fixed;
                 top: 0.75rem;
                 right: 0.75rem;
             }
