@@ -14,15 +14,15 @@
     <style>
         :root {
             --primary: #3B82F6;
-            --primary-glow: rgba(88, 94, 254, 0.4);
+            --primary-glow: rgba(59, 130, 246, 0.4);
             --bg: #000000;
             --card-bg: #0A0A0A;
             --input-bg: #0c0e18;
-            --border: rgba(146, 51, 234, 0.4);
+            --border: rgba(59, 130, 246, 0.4);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --accent-blue: #585efe;
-            --gradient-highlight: linear-gradient(to right, #585efe, #9233EA);
+            --accent-blue: #3B82F6;
+            --gradient-highlight: linear-gradient(to right, #1D4ED8, #60A5FA);
         }
 
         #interactive-grid {
@@ -66,7 +66,7 @@
         }
 
         .logo-container img {
-            height: 28px;
+            height: 42px;
             width: auto;
             display: block;
             transition: opacity 0.2s ease;
@@ -232,7 +232,7 @@
         }
 
         textarea:focus {
-            box-shadow: 0 0 0 2px rgba(146, 51, 234, 0.2);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
 
         .templates {
@@ -368,14 +368,14 @@
         /* Responsive */
         @media (max-width: 640px) {
             .logo-container {
-                position: fixed;
+                position: absolute;
                 top: 0.75rem;
                 left: 0.75rem;
                 gap: 8px;
             }
 
             .logo-container img {
-                height: 24px;
+                height: 36px;
             }
             
             .logo-text {
@@ -383,7 +383,7 @@
             }
 
             .hamburger {
-                position: fixed;
+                position: absolute;
                 top: 0.75rem;
                 right: 0.75rem;
             }
