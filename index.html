@@ -15,14 +15,24 @@
         :root {
             --primary: #585efe;
             --primary-glow: rgba(88, 94, 254, 0.4);
-            --bg: #020617;
-            --card-bg: #020617;
+            --bg: #000000;
+            --card-bg: #0A0A0A;
             --input-bg: #0c0e18;
             --border: rgba(146, 51, 234, 0.4);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --accent-blue: #585efe;
             --gradient-highlight: linear-gradient(to right, #585efe, #9233EA);
+        }
+
+        #interactive-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         * {
@@ -435,7 +445,7 @@
 
 <body>
 <!-- Interactive Canvas Grid -->
-<canvas id="interactive-grid" class="fixed inset-0 pointer-events-none z-0" style="background:transparent"></canvas>
+<canvas id="interactive-grid"></canvas>
 
     <a href="https://funnelfluxassets.com" class="logo-container">
         <img src="assets/logo.png" alt="Funnel Flux Assets">
