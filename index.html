@@ -59,17 +59,28 @@
             top: 2rem;
             left: 2rem;
             z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
         }
 
         .logo-container img {
-            height: 90px;
-            /* Increased by 2X */
+            height: 36px;
             width: auto;
             display: block;
             transition: opacity 0.2s ease;
         }
 
-        .logo-container img:hover {
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-container:hover {
             opacity: 0.8;
         }
 
@@ -447,8 +458,9 @@
 <!-- Interactive Canvas Grid -->
 <canvas id="interactive-grid"></canvas>
 
-    <a href="https://funnelfluxassets.com" class="logo-container">
-        <img src="assets/logo.png" alt="Funnel Flux Assets">
+    <a href="/" class="logo-container">
+        <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo">
+        <span class="logo-text">JSONGen</span>
     </a>
 
     <a href="https://funnelfluxassets.com" class="hamburger">
