@@ -392,12 +392,18 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 1.5rem;
+            min-height: 120px;
+            overflow: hidden; /* Safety break */
+        }
+
+        .output-box pre {
             font-family: 'JetBrains Mono', monospace;
             color: var(--primary);
             font-size: 1.05rem;
-            min-height: 120px;
             white-space: pre-wrap; /* Enable wrapping */
-            overflow-wrap: break-word; /* Handle long strings */
+            word-break: break-all; /* Force break long strings */
+            overflow-wrap: break-word;
+            margin: 0;
         }
 
         .copy-btn {
