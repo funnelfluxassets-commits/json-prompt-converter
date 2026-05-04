@@ -101,22 +101,28 @@
         }
 
         .theme-toggle {
-            background: var(--border);
-            border: none;
+            background: transparent;
+            border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 0.5rem;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .theme-toggle:hover {
-            transform: scale(1.1);
-            background: var(--primary);
-            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: rotate(15deg);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
         }
 
         .footer-fixed {
@@ -644,7 +650,7 @@
             let mouse = { x: -1000, y: -1000 };
             let dots = [];
             const gap = 35;
-            const mouseRadius = 150;
+            const mouseRadius = 200;
 
             function init() {
                 dots = [];
@@ -664,30 +670,27 @@
                 
                 const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
                 const dotColor = isDark ? '255, 255, 255' : '0, 0, 0';
-                const baseOpacity = isDark ? 0.2 : 0.1;
+                const baseOpacity = isDark ? 0.08 : 0.05;
 
                 dots.forEach(dot => {
                     const dx = mouse.x - dot.originalX;
                     const dy = mouse.y - dot.originalY;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    let x = dot.originalX;
-                    let y = dot.originalY;
-
                     if (distance < mouseRadius) {
                         const ratio = (mouseRadius - distance) / mouseRadius;
-                        x -= dx * ratio * 0.1;
-                        y -= dy * ratio * 0.1;
+                        const opacity = baseOpacity + (ratio * 0.4);
                         
-                        ctx.fillStyle = `rgba(59, 130, 246, ${baseOpacity + (ratio * 0.4)})`;
-                        const size = 1.2 + (ratio * 1.5);
+                        // Blue highlight effect
+                        ctx.fillStyle = `rgba(59, 130, 246, ${opacity})`;
+                        const size = 1 + (ratio * 1.5);
                         ctx.beginPath();
-                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.arc(dot.originalX, dot.originalY, size, 0, Math.PI * 2);
                         ctx.fill();
                     } else {
                         ctx.fillStyle = `rgba(${dotColor}, ${baseOpacity})`;
                         ctx.beginPath();
-                        ctx.arc(x, y, 1, 0, Math.PI * 2);
+                        ctx.arc(dot.originalX, dot.originalY, 0.8, 0, Math.PI * 2);
                         ctx.fill();
                     }
                 });
