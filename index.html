@@ -463,10 +463,10 @@
 <!-- Interactive Canvas Grid -->
 <canvas id="interactive-grid"></canvas>
 
-    <header style="position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 999; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;">
-        <a href="/" class="logo-container" style="position: relative; top: 0; left: 0;">
+    <header style="position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 1001; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; box-sizing: border-box;">
+        <a href="/" class="logo-container" style="position: relative; top: 0; left: 0; display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo" style="height: 42px;">
-            <span class="logo-text">JSON<span style="color: var(--primary);">Gen</span></span>
+            <span class="logo-text" style="font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">JSON<span style="color: var(--primary);">Gen</span></span>
         </a>
 
         <div style="display: flex; gap: 1.5rem; align-items: center;">
@@ -482,10 +482,10 @@
                 FunnelFlux Assets
             </a>
 
-            <a href="https://funnelfluxassets.com" class="hamburger" style="position: relative; top: 0; right: 0;">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="https://funnelfluxassets.com" class="hamburger" style="position: relative; top: 0; right: 0; display: flex; flex-direction: column; gap: 5px;">
+                <span style="width: 24px; height: 2px; background: #fff;"></span>
+                <span style="width: 24px; height: 2px; background: #fff;"></span>
+                <span style="width: 24px; height: 2px; background: #fff;"></span>
             </a>
         </div>
     </header>
@@ -546,12 +546,12 @@
         </div>
     </div>
 
-    <footer style="margin-top: 5rem; padding: 4rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100%; display: flex; flex-direction: column; align-items: center; gap: 2rem; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px;">
+    <footer style="margin-top: 5rem; padding: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100vw; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; box-sizing: border-box; margin-bottom: 0;">
         <a
             href="https://funnelfluxassets.com"
             target="_blank"
             rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; gap: 10px; px-6 py-2.5; rounded-full; text-decoration: none; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.8rem 1.5rem; border-radius: 100px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); transition: all 0.3s ease;"
+            style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.5); padding: 0.6rem 1.2rem; border-radius: 100px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); transition: all 0.3s ease;"
             onmouseover="this.style.boxShadow='0 0 30px rgba(59, 130, 246, 0.4)'; this.style.borderColor='#3B82F6';"
             onmouseout="this.style.boxShadow='0 0 20px rgba(59, 130, 246, 0.2)'; this.style.borderColor='rgba(59, 130, 246, 0.5)';"
         >
