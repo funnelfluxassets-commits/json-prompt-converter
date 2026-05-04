@@ -463,30 +463,32 @@
 <!-- Interactive Canvas Grid -->
 <canvas id="interactive-grid"></canvas>
 
-    <div class="header-nav" style="position: fixed; top: 2rem; right: 6rem; z-index: 1000; display: flex; gap: 2rem; align-items: center;">
-        <a
-            href="https://funnelfluxassets.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; backdrop-blur: 10px; background: rgba(0,0,0,0.3); transition: all 0.3s ease;"
-            onmouseover="this.style.borderColor='#3B82F6'; this.style.boxShadow='0 0 15px rgba(59, 130, 246, 0.3)';"
-            onmouseout="this.style.borderColor='rgba(59, 130, 246, 0.3)'; this.style.boxShadow='none';"
-        >
-            <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            FunnelFlux Assets
+    <header style="position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 999; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;">
+        <a href="/" class="logo-container" style="position: relative; top: 0; left: 0;">
+            <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo" style="height: 42px;">
+            <span class="logo-text">JSON<span style="color: var(--primary);">Gen</span></span>
         </a>
-    </div>
 
-    <a href="/" class="logo-container">
-        <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo">
-        <span class="logo-text">JSON<span style="color: var(--primary);">Gen</span></span>
-    </a>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <a
+                href="https://funnelfluxassets.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; transition: all 0.3s ease;"
+                onmouseover="this.style.borderColor='#3B82F6'; this.style.boxShadow='0 0 15px rgba(59, 130, 246, 0.3)';"
+                onmouseout="this.style.borderColor='rgba(59, 130, 246, 0.3)'; this.style.boxShadow='none';"
+            >
+                <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                FunnelFlux Assets
+            </a>
 
-    <a href="https://funnelfluxassets.com" class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </a>
+            <a href="https://funnelfluxassets.com" class="hamburger" style="position: relative; top: 0; right: 0;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </header>
 
     <div class="top-meta">NO LLMS · NO TOKENS · ZERO COST</div>
 
@@ -544,7 +546,7 @@
         </div>
     </div>
 
-    <footer style="margin-top: 5rem; padding: 4rem 2rem; border-top: 1px solid var(--border); width: 100%; display: flex; flex-direction: column; align-items: center; gap: 2rem; background: rgba(0,0,0,0.3); backdrop-blur: 10px;">
+    <footer style="margin-top: 5rem; padding: 4rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100%; display: flex; flex-direction: column; align-items: center; gap: 2rem; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px;">
         <a
             href="https://funnelfluxassets.com"
             target="_blank"
