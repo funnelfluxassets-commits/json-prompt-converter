@@ -46,23 +46,30 @@
             background-color: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            position: relative;
+            overflow-x: hidden; /* Remove horizontal scroll */
+        }
+
+        #interactive-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 8rem 3rem 5rem 3rem;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .logo-container {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
+            padding: 8rem 2rem 5rem 2rem;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .logo-container img {
@@ -450,7 +457,6 @@
                 gap: 1rem;
                 padding-top: 1.5rem;
             }
-
             .generate-btn {
                 width: 100%;
                 justify-content: center;
@@ -459,12 +465,17 @@
     </style>
 </head>
 
-<body>
-<!-- Interactive Canvas Grid -->
-<canvas id="interactive-grid"></canvas>
+<body style="scrollbar-width: none; -ms-overflow-style: none;">
+    <style>
+        body::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+        .content-wrapper { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
+    </style>
+
+    <!-- Interactive Canvas Grid -->
+    <canvas id="interactive-grid"></canvas>
 
     <header style="position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 1001; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; box-sizing: border-box;">
-        <a href="/" class="logo-container" style="position: relative; top: 0; left: 0; display: flex; align-items: center; gap: 12px; text-decoration: none;">
+        <a href="/" class="logo-container" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo" style="height: 42px;">
             <span class="logo-text" style="font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">JSON<span style="color: var(--primary);">Gen</span></span>
         </a>
@@ -482,63 +493,65 @@
         </a>
     </header>
 
-    <div class="top-meta">NO LLMS · NO TOKENS · ZERO COST</div>
+    <div class="content-wrapper">
+        <div class="top-meta">NO LLMS · NO TOKENS · ZERO COST</div>
 
-    <header>
-        <h1>Turn plain English into<br><em>Perfect</em> <span class="gradient-text">JSON</span> Prompts.</h1>
-        <p>Describe your scene in plain language. Get a structured Nano Banana JSON prompt
-            instantly — no AI required.</p>
+        <header>
+            <h1>Turn plain English into<br><em>Perfect</em> <span class="gradient-text">JSON</span> Prompts.</h1>
+            <p>Describe your scene in plain language. Get a structured Nano Banana JSON prompt
+                instantly — no AI required.</p>
 
-        <div class="tabs-container">
-            <button class="tab-btn">Nano Banana Pro</button>
-            <button class="tab-btn">Nano Banana 2</button>
-        </div>
-    </header>
-
-    <div class="main-card">
-        <!-- Input Section -->
-        <div class="input-group">
-            <span class="section-label">Your Prompt</span>
-            <textarea id="input-prompt"
-                placeholder="a woman at a coffee shop in the morning, warm vibes, film aesthetic"></textarea>
-
-            <div class="templates">
-                <button class="template-btn"
-                    data-prompt="a lone samurai standing on a cliff during a thunderstorm, lightning strikes, dramatic lighting, cinematic">lone
-                    samurai, thunderstorm...</button>
-                <button class="template-btn"
-                    data-prompt="futuristic cyberpunk city at sunset, neon bioluminescence, flying vehicles, raw style">cyberpunk
-                    neon city...</button>
-                <button class="template-btn"
-                    data-prompt="astronaut discovering a glowing crystal temple on Mars, deep shadows, cinematic lighting, photorealistic">astronaut,
-                    crystal temple...</button>
-                <button class="template-btn"
-                    data-prompt="majestic phoenix rising from volcanic ash, glowing embers, intense heat distortion, dramatic">phoenix
-                    rising, volcano...</button>
+            <div class="tabs-container">
+                <button class="tab-btn">Nano Banana Pro</button>
+                <button class="tab-btn">Nano Banana 2</button>
             </div>
-        </div>
+        </header>
 
-        <!-- Action Row -->
-        <div class="action-row">
-            <button class="generate-btn" id="generate-trigger">
-                Generate JSON <span>→</span>
-            </button>
-            <div class="action-meta">Rule-based · Instant · Free</div>
-        </div>
+        <div class="main-card">
+            <!-- Input Section -->
+            <div class="input-group">
+                <span class="section-label">Your Prompt</span>
+                <textarea id="input-prompt"
+                    placeholder="a woman at a coffee shop in the morning, warm vibes, film aesthetic"></textarea>
 
-        <!-- Output Section -->
-        <div class="output-group">
-            <div class="output-header">
-                <span class="section-label">JSON Output</span>
-                <button class="copy-btn" id="copy-btn">Copy</button>
+                <div class="templates">
+                    <button class="template-btn"
+                        data-prompt="a lone samurai standing on a cliff during a thunderstorm, lightning strikes, dramatic lighting, cinematic">lone
+                        samurai, thunderstorm...</button>
+                    <button class="template-btn"
+                        data-prompt="futuristic cyberpunk city at sunset, neon bioluminescence, flying vehicles, raw style">cyberpunk
+                        neon city...</button>
+                    <button class="template-btn"
+                        data-prompt="astronaut discovering a glowing crystal temple on Mars, deep shadows, cinematic lighting, photorealistic">astronaut,
+                        crystal temple...</button>
+                    <button class="template-btn"
+                        data-prompt="majestic phoenix rising from volcanic ash, glowing embers, intense heat distortion, dramatic">phoenix
+                        rising, volcano...</button>
+                </div>
             </div>
-            <div class="output-box">
-                <pre id="output-json">// Output will appear here...</pre>
+
+            <!-- Action Row -->
+            <div class="action-row">
+                <button class="generate-btn" id="generate-trigger">
+                    Generate JSON <span>→</span>
+                </button>
+                <div class="action-meta">Rule-based · Instant · Free</div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="output-group">
+                <div class="output-header">
+                    <span class="section-label">JSON Output</span>
+                    <button class="copy-btn" id="copy-btn">Copy</button>
+                </div>
+                <div class="output-box">
+                    <pre id="output-json">// Output will appear here...</pre>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer style="margin-top: 5rem; padding: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; box-sizing: border-box; margin-bottom: -5rem;">
+    <footer style="padding: 2rem 0; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; background: rgba(10, 10, 10, 0.8); backdrop-blur: 12px; box-sizing: border-box;">
         <a
             href="https://funnelfluxassets.com"
             target="_blank"

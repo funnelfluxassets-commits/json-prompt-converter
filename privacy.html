@@ -29,7 +29,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
+        body::-webkit-scrollbar { display: none; }
 
         .container {
             max-width: 800px;
