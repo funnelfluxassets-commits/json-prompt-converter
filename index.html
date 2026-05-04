@@ -13,16 +13,26 @@
         rel="stylesheet">
     <style>
         :root {
+            /* Dark Mode (Default) */
             --primary: #3B82F6;
-            --primary-glow: rgba(59, 130, 246, 0.4);
+            --primary-glow: rgba(59, 130, 246, 0.3);
             --bg: #000000;
-            --card-bg: #0A0A0A;
+            --card-bg: rgba(10, 10, 10, 0.8);
             --input-bg: #0c0e18;
-            --border: rgba(59, 130, 246, 0.4);
+            --border: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --accent-blue: #3B82F6;
-            --gradient-highlight: linear-gradient(to right, #1D4ED8, #60A5FA);
+            --header-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        [data-theme="light"] {
+            --bg: #f4f7fb;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --input-bg: #ffffff;
+            --border: rgba(0, 0, 0, 0.05);
+            --text-main: #020617;
+            --text-muted: #64748b;
+            --header-bg: rgba(255, 255, 255, 0.8);
         }
 
         /* Reset & Global */
@@ -42,8 +52,9 @@
             font-family: 'Outfit', sans-serif;
             line-height: 1.5;
             overflow-x: hidden;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         html::-webkit-scrollbar, body::-webkit-scrollbar {
@@ -72,10 +83,10 @@
             right: 0;
             width: 100%;
             height: 64px;
-            background: rgba(0, 0, 0, 0.85);
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -83,13 +94,38 @@
             padding: 0 2rem;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: var(--border);
+            border: none;
+            color: var(--text-main);
+            padding: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+
         .footer-fixed {
             width: 100%;
             padding: 4rem 2rem;
-            background: rgba(10, 10, 10, 0.9);
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -345,20 +381,27 @@
     <header class="header-fixed">
         <a href="/" class="logo-container" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="assets/funnelfluxassets-favricon-500.png" alt="JSONGen Logo" style="height: 42px;">
-            <span class="logo-text" style="font-weight: 700; font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">JSON<span style="color: var(--primary);">Gen</span></span>
+            <span class="logo-text" style="font-weight: 700; font-size: 1.25rem; color: var(--text-main); letter-spacing: 0.05em;">JSON<span style="color: var(--primary);">Gen</span></span>
         </a>
 
-        <a
-            href="https://funnelfluxassets.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; transition: all 0.3s ease;"
-            onmouseover="this.style.borderColor='#3B82F6'; this.style.boxShadow='0 0 15px rgba(59, 130, 246, 0.3)';"
-            onmouseout="this.style.borderColor='rgba(59, 130, 246, 0.3)'; this.style.boxShadow='none';"
-        >
-            <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            FunnelFlux Assets
-        </a>
+        <div class="header-right">
+            <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+                <svg id="theme-icon-sun" style="display: none; width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <svg id="theme-icon-moon" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
+
+            <a
+                href="https://funnelfluxassets.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; transition: all 0.3s ease;"
+                onmouseover="this.style.borderColor='#3B82F6'; this.style.boxShadow='0 0 15px rgba(59, 130, 246, 0.3)';"
+                onmouseout="this.style.borderColor='rgba(59, 130, 246, 0.3)'; this.style.boxShadow='none';"
+            >
+                <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                FunnelFlux Assets
+            </a>
+        </div>
     </header>
 
     <div class="content-wrapper">
@@ -567,6 +610,31 @@
             });
         });
 
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        applyTheme(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+
         // Interactive Grid Canvas
         (function() {
             const canvas = document.getElementById('interactive-grid');
@@ -592,10 +660,11 @@
 
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                if (canvas.width === 0) return; // Skip if canvas not visible
+                if (canvas.width === 0) return;
                 
-                const dotColor = '255, 255, 255';
-                const baseOpacity = 0.4;
+                const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+                const dotColor = isDark ? '255, 255, 255' : '0, 0, 0';
+                const baseOpacity = isDark ? 0.2 : 0.1;
 
                 dots.forEach(dot => {
                     const dx = mouse.x - dot.originalX;
@@ -610,7 +679,7 @@
                         x -= dx * ratio * 0.1;
                         y -= dy * ratio * 0.1;
                         
-                        ctx.fillStyle = `rgba(59, 130, 246, ${baseOpacity + (ratio * 0.6)})`;
+                        ctx.fillStyle = `rgba(59, 130, 246, ${baseOpacity + (ratio * 0.4)})`;
                         const size = 1.2 + (ratio * 1.5);
                         ctx.beginPath();
                         ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -632,7 +701,6 @@
             });
 
             window.addEventListener('resize', init);
-
             init();
             draw();
         })();
