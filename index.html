@@ -11,18 +11,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            /* Dark Mode (Default) */
-            --primary: #3B82F6;
-            --primary-glow: rgba(59, 130, 246, 0.3);
-            --bg: #000000;
-            --card-bg: rgba(10, 10, 10, 0.8);
-            --input-bg: #0c0e18;
-            --border: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --header-bg: rgba(0, 0, 0, 0.8);
+            --title-color: #ffffff;
         }
 
         [data-theme="light"] {
@@ -33,6 +25,7 @@
             --text-main: #020617;
             --text-muted: #64748b;
             --header-bg: rgba(255, 255, 255, 0.8);
+            --title-color: #020617;
         }
 
         /* Reset & Global */
@@ -210,7 +203,7 @@
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
-            color: #fff;
+            color: var(--title-color);
         }
 
         h1 em {
@@ -416,22 +409,22 @@
         </a>
 
         <div class="header-right">
-            <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
-                <svg id="theme-icon-sun" style="display: none; width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <svg id="theme-icon-moon" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-            </button>
-
             <a
                 href="https://funnelfluxassets.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; transition: all 0.3s ease;"
+                style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.5rem 1.2rem; border-radius: 100px; transition: all 0.3s ease; white-space: nowrap;"
                 onmouseover="this.style.borderColor='#3B82F6'; this.style.boxShadow='0 0 15px rgba(59, 130, 246, 0.3)';"
                 onmouseout="this.style.borderColor='rgba(59, 130, 246, 0.3)'; this.style.boxShadow='none';"
             >
                 <svg style="width: 12px; height: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 FunnelFlux Assets
             </a>
+
+            <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+                <svg id="theme-icon-sun" style="display: none; width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <svg id="theme-icon-moon" style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
         </div>
     </header>
 
