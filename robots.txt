@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jsonprompting.funnelfluxassets.com/sitemap.xml
+Sitemap: https://json-prompts.funnelfluxassets.com/sitemap.xml
