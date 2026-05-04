@@ -414,6 +414,101 @@
             background: var(--primary);
         }
 
+        /* Info Section */
+        .info-section {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 100px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--title-color);
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .guide-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: left;
+        }
+
+        .guide-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--title-color);
+        }
+
+        .guide-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-box ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .guide-box li {
+            color: var(--text-muted);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .guide-box li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .guide-box code {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 768px) {
             .header-fixed { padding: 0 1.25rem; }
             .content-wrapper { padding: 140px 1.25rem 80px 1.25rem; }
@@ -421,6 +516,8 @@
             .action-row { flex-direction: column; text-align: center; }
             .generate-btn { width: 100%; justify-content: center; }
             .logo-text { font-size: 1.1rem; }
+            .info-card, .guide-box { padding: 2rem 1.5rem; }
+            .info-section { margin-top: 60px; }
         }
     </style>
 </head>
@@ -509,6 +606,37 @@
                 <div class="output-box">
                     <pre id="output-json">// Output will appear here...</pre>
                 </div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3>Why JSON?</h3>
+                    <p>JSON prompts provide a mathematical structure to creativity. Unlike natural language, which can be ambiguous, JSON forces the AI to acknowledge every specific parameter independently.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">⚡</div>
+                    <h3>Superior Precision</h3>
+                    <p>By separating the <strong>Subject</strong> from the <strong>Environment</strong> and <strong>Lighting</strong>, you eliminate "concept bleeding" where colors or styles from one part of your prompt infect others.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🛠️</div>
+                    <h3>Easy Tweaking</h3>
+                    <p>Want to change just the lighting? Simply edit the <code>lighting</code> value. Want to swap the camera angle? Change the <code>camera</code> key. No need to rephrase your entire description.</p>
+                </div>
+            </div>
+
+            <div class="guide-box">
+                <h3>Making Precise Changes</h3>
+                <p>Once you've generated your prompt, you can manually fine-tune the JSON before pasting it into your AI generator. Here's how to maximize your results:</p>
+                <ul>
+                    <li><strong>Subject Attributes:</strong> Modify the <code>description</code> or <code>appearance</code> to change physical traits without affecting the background.</li>
+                    <li><strong>Environment Scale:</strong> Adjust the <code>details</code> array to add or remove specific objects from the scene.</li>
+                    <li><strong>Meta Tuning:</strong> Use the <code>meta</code> block to lock in aspect ratios or specific rendering resolutions across different versions.</li>
+                </ul>
             </div>
         </div>
     </div>
