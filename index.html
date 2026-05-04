@@ -63,19 +63,43 @@
             height: 0 !important;
         }
 
-        #interactive-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
+        /* Background Grid (Brand Standard) */
+        .dot-grid {
+            position: relative;
+            background-image: radial-gradient(circle, rgba(148, 163, 184, 0.2) 1.5px, transparent 1.5px);
+            background-color: var(--bg);
+            background-size: 32px 32px;
+            background-attachment: fixed;
+            --mouse-x: -100%;
+            --mouse-y: -100%;
         }
 
-        /* Header & Footer */
+        .dot-grid::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(59, 130, 246, 0.45) 2px, transparent 2px);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(circle 145px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle 145px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        [data-theme="dark"] .dot-grid {
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+        }
+
+        [data-theme="dark"] .dot-grid::before {
+            background-image: radial-gradient(circle, rgba(37, 99, 235, 0.8) 2px, transparent 2px);
+        }
+
+        /* Ensure content is above the spotlight */
+        .header-fixed, .footer-fixed, .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
         .header-fixed {
             position: fixed;
             top: 0;
@@ -137,6 +161,7 @@
             align-items: center;
             gap: 2rem;
             margin-top: 0;
+            z-index: 2000;
         }
 
         /* Layout */
@@ -380,9 +405,9 @@
     </style>
 </head>
 
-<body>
-    <!-- Interactive Canvas Grid -->
-    <canvas id="interactive-grid"></canvas>
+<body class="dot-grid">
+    <!-- Spotlight Layer -->
+    <div class="dot-grid-before"></div>
 
     <header class="header-fixed">
         <a href="/" class="logo-container" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
@@ -641,72 +666,11 @@
             applyTheme(currentTheme);
         });
 
-        // Interactive Grid Canvas
-        (function() {
-            const canvas = document.getElementById('interactive-grid');
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            let mouse = { x: -1000, y: -1000 };
-            let dots = [];
-            const gap = 35;
-            const mouseRadius = 200;
-
-            function init() {
-                dots = [];
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-
-                for (let x = gap / 2; x < canvas.width; x += gap) {
-                    for (let y = gap / 2; y < canvas.height; y += gap) {
-                        dots.push({ x, y, originalX: x, originalY: y });
-                    }
-                }
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                if (canvas.width === 0) return;
-                
-                const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-                const dotColor = isDark ? '255, 255, 255' : '0, 0, 0';
-                const baseOpacity = isDark ? 0.08 : 0.05;
-
-                dots.forEach(dot => {
-                    const dx = mouse.x - dot.originalX;
-                    const dy = mouse.y - dot.originalY;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < mouseRadius) {
-                        const ratio = (mouseRadius - distance) / mouseRadius;
-                        const opacity = baseOpacity + (ratio * 0.4);
-                        
-                        // Blue highlight effect
-                        ctx.fillStyle = `rgba(59, 130, 246, ${opacity})`;
-                        const size = 1 + (ratio * 1.5);
-                        ctx.beginPath();
-                        ctx.arc(dot.originalX, dot.originalY, size, 0, Math.PI * 2);
-                        ctx.fill();
-                    } else {
-                        ctx.fillStyle = `rgba(${dotColor}, ${baseOpacity})`;
-                        ctx.beginPath();
-                        ctx.arc(dot.originalX, dot.originalY, 0.8, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                });
-
-                requestAnimationFrame(draw);
-            }
-
-            document.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
-
-            window.addEventListener('resize', init);
-            init();
-            draw();
-        })();
+        // Mouse Spotlight Logic (Brand Standard)
+        document.addEventListener('mousemove', (e) => {
+            document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
     </script>
 </body>
 
