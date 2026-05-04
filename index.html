@@ -690,6 +690,21 @@
         const generateBtn = document.getElementById('generate-trigger');
         const copyBtn = document.getElementById('copy-btn');
         const templateBtns = document.querySelectorAll('.template-btn');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        
+        let currentModel = "Nano Banana Pro";
+
+        // Tab Logic
+        tabBtns.forEach(btn => {
+            if (btn.innerText === currentModel) btn.classList.add('active');
+            
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentModel = btn.innerText;
+                triggerGeneration();
+            });
+        });
 
         const STYLE_MAPPING = {
             "cinematic": "ultra_photorealistic",
@@ -702,16 +717,6 @@
             "film aesthetic": "vintage cinematic look"
         };
 
-        const LIGHTING_MAPPING = {
-            "sunny": "bright direct sunlight",
-            "golden hour": "soft warm sunset lighting",
-            "neon": "cyberpunk neon glow",
-            "studio": "professional studio lighting",
-            "dim": "low-key atmospheric lighting",
-            "dark": "highly shadowed, dramatic",
-            "warm vibes": "soft incandescent indoor lighting"
-        };
-
         const ASPECT_RATIOS = {
             "portrait": "9:16",
             "landscape": "16:9",
@@ -719,52 +724,104 @@
             "wide": "21:9"
         };
 
-        const HUMAN_KEYWORDS = ["man", "woman", "person", "girl", "boy", "human", "child", "model"];
+        const LIGHTING_MAPPING = {
+            "sunny": { style: "bright direct sunlight", mood: "vibrant" },
+            "golden hour": { style: "soft warm sunset lighting", mood: "ethereal" },
+            "neon": { style: "cyberpunk neon glow", mood: "vivid and electric" },
+            "studio": { style: "professional studio lighting", mood: "polished" },
+            "dim": { style: "low-key atmospheric lighting", mood: "mysterious" },
+            "dark": { style: "highly shadowed, dramatic", mood: "intense" },
+            "warm vibes": { style: "soft incandescent indoor lighting", mood: "cozy" }
+        };
+
+        const CAMERA_MAPPING = {
+            "low angle": { angle: "low-angle hero shot", lens: "24mm wide angle" },
+            "wide": { angle: "wide cinematic shot", lens: "35mm" },
+            "close up": { angle: "macro close-up", lens: "85mm prime" },
+            "overhead": { angle: "top-down bird's eye view", lens: "50mm" }
+        };
 
         function convertToJSON(basicPrompt) {
+            const lowerPrompt = basicPrompt.toLowerCase();
+            
+            // Default structure
             let jsonPrompt = {
-                "task": "Generate a high-quality visual still based on the description.",
-                "parameters": {
+                "visual_identity": {
                     "subject": {
-                        "description": "",
-                        "made_out_of": "organic skin, detailed pores, natural texture"
+                        "primary": basicPrompt.split(',')[0].trim(),
+                        "attributes": [],
+                        "action": "stationary"
                     },
-                    "background": {
-                        "setting": "neutral"
-                    },
-                    "lighting": "natural lighting",
-                    "style": "standard"
+                    "scene_environment": {
+                        "setting": "neutral environment",
+                        "atmosphere": "standard clear atmosphere",
+                        "foreground_details": []
+                    }
                 },
-                "meta": {
+                "cinematography": {
+                    "lighting": {
+                        "style": "natural lighting",
+                        "primary_source": "ambient light",
+                        "mood": "balanced"
+                    },
+                    "camera": {
+                        "angle": "eye-level shot",
+                        "lens": "50mm cinematic",
+                        "depth_of_field": "sharp focus on subject"
+                    },
+                    "render_aesthetic": "high-end digital photography"
+                },
+                "technical_meta": {
+                    "model": currentModel,
                     "aspect_ratio": "16:9",
-                    "resolution": "2K",
-                    "quality": "standard",
                     "negative_prompt": ["blur", "distorted", "watermark", "text", "bad anatomy"]
                 }
             };
 
-            let cleanDescription = basicPrompt;
-            const lowerPrompt = basicPrompt.toLowerCase();
-
+            // Smart Mapping - Aspect Ratio
             for (const [key, val] of Object.entries(ASPECT_RATIOS)) {
                 if (lowerPrompt.includes(key)) {
-                    jsonPrompt.meta.aspect_ratio = val;
+                    jsonPrompt.technical_meta.aspect_ratio = val;
                 }
             }
 
+            // Smart Mapping - Style/Aesthetic
             for (const [key, val] of Object.entries(STYLE_MAPPING)) {
                 if (lowerPrompt.includes(key)) {
-                    jsonPrompt.parameters.style = val;
+                    jsonPrompt.cinematography.render_aesthetic = val;
                 }
             }
 
+            // Smart Mapping - Lighting
             for (const [key, val] of Object.entries(LIGHTING_MAPPING)) {
                 if (lowerPrompt.includes(key)) {
-                    jsonPrompt.parameters.lighting = val;
+                    jsonPrompt.cinematography.lighting.style = val.style;
+                    jsonPrompt.cinematography.lighting.mood = val.mood;
                 }
             }
 
-            jsonPrompt.parameters.subject.description = cleanDescription;
+            // Smart Mapping - Camera
+            for (const [key, val] of Object.entries(CAMERA_MAPPING)) {
+                if (lowerPrompt.includes(key)) {
+                    jsonPrompt.cinematography.camera.angle = val.angle;
+                    jsonPrompt.cinematography.camera.lens = val.lens;
+                }
+            }
+
+            // Keyword Extraction for Attributes & Action
+            const keywords = basicPrompt.split(',').map(s => s.trim());
+            if (keywords.length > 1) {
+                jsonPrompt.visual_identity.subject.attributes = keywords.slice(1, 3);
+                jsonPrompt.visual_identity.scene_environment.setting = keywords[keywords.length - 1];
+            }
+
+            // Detect common actions
+            const actions = ["standing", "running", "sitting", "walking", "flying", "rising", "fighting"];
+            actions.forEach(action => {
+                if (lowerPrompt.includes(action)) {
+                    jsonPrompt.visual_identity.subject.action = action;
+                }
+            });
 
             return jsonPrompt;
         }
