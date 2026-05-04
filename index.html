@@ -66,7 +66,7 @@
         /* Background Grid (Brand Standard) */
         .dot-grid {
             position: relative;
-            background-image: radial-gradient(circle, rgba(148, 163, 184, 0.2) 1.5px, transparent 1.5px);
+            background-image: radial-gradient(circle, rgba(148, 163, 184, 0.25) 1.875px, transparent 1.875px);
             background-color: var(--bg);
             background-size: 32px 32px;
             background-attachment: fixed;
@@ -79,7 +79,7 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background-image: radial-gradient(circle, rgba(59, 130, 246, 0.45) 2px, transparent 2px);
+            background-image: radial-gradient(circle, rgba(59, 130, 246, 0.56) 2.5px, transparent 2.5px);
             background-size: 32px 32px;
             mask-image: radial-gradient(circle 145px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
             -webkit-mask-image: radial-gradient(circle 145px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
@@ -87,11 +87,11 @@
         }
 
         [data-theme="dark"] .dot-grid {
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1.25px, transparent 1.25px);
         }
 
         [data-theme="dark"] .dot-grid::before {
-            background-image: radial-gradient(circle, rgba(37, 99, 235, 0.8) 2px, transparent 2px);
+            background-image: radial-gradient(circle, rgba(37, 99, 235, 1.0) 2.5px, transparent 2.5px);
         }
 
         /* Ensure content is above the spotlight */
